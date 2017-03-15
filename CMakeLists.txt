@@ -234,7 +234,10 @@ install(DIRECTORY ${bd}/include/ DESTINATION include/opus)
 
 if (WIN32)
   # Generate version.h file
-  execute_process(COMMAND git describe --tags OUTPUT_VARIABLE git_tag)
+  execute_process(COMMAND git describe --tags
+    OUTPUT_VARIABLE git_tag
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+    )
   string(STRIP ${git_tag} git_tag)
   file(WRITE ${bd}/win32/version.h "#define PACKAGE_VERSION \"${git_tag}\"")
 endif()
